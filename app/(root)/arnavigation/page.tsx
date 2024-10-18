@@ -72,7 +72,7 @@ const ARNavigation = () => {
             </dl>
           </div>
           <div className="mt-20 text-center">
-            <p className="text-xl text-gray-500">We're working hard to bring you this exciting feature.</p>
+            <p className="text-xl text-gray-500">We are working hard to bring you this exciting feature.</p>
             <p className="mt-4 text-lg text-gray-600">Expected launch: Q4 2024</p>
           </div>
         </div>
