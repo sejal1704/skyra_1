@@ -7,13 +7,14 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { navLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
-
+import { Plane } from "lucide-react";
 const MobileNav = () => {
   const pathname = usePathname();
   return (
     <header className="header">
       <Link href="/" className="flex items-center gap-2 md:py-2">
-        <p className="pl-10 font-semibold text-4xl text-purple-500">Skyra</p>
+
+        <p className=" font-semibold text-4xl text-purple-500 flex items-center space-x-3"> <Plane className="h-8 w-8 text-purple-500" /> Skyra</p>
       </Link>
       <nav className="flex gap-2">
         <SignedIn>
@@ -30,7 +31,8 @@ const MobileNav = () => {
             </SheetTrigger>
             <SheetContent className="sheet-content sm:w-64">
               <>
-                <p className="pl-10 font-semibold text-4xl text-purple-500">
+                <p className=" font-semibold text-4xl text-purple-500 flex space-x-3 items-center">
+                  <Plane className="h-8 w-8 text-purple-500" />
                   Skyra
                 </p>
                 <ul className="header-nav_elements">
@@ -53,6 +55,7 @@ const MobileNav = () => {
                             width={24}
                             height={24}
                           />{" "} */}
+
                           {link.label}
                         </Link>
                       </li>

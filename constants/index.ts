@@ -8,7 +8,7 @@ export const navLinks = [
     route: "/flights",
   },
   {
-    label: "Profile",
-    route: "/profile",
+    label: "Ar Navigation",
+    route: "/arnavigation",
   },
 ];
