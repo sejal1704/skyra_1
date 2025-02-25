@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react";
 // Import the flight bookings data - replace this with your actual import method
 // For this example, I'm assuming you'll have the JSON in a separate file
 import user from "@/user.json";
-const API = "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"
+const API = "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"
 const openai = new OpenAI({
   apiKey: API,
   dangerouslyAllowBrowser: true,
