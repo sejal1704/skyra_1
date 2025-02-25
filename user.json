@@ -1,0 +1,398 @@
+[
+    {
+        "bookingReference": "BK987654321",
+        "pnr": "XYZ987",
+        "bookingDate": "2025-02-16T12:15:00Z",
+        "totalPrice": 18500.00,
+        "currency": "INR",
+        "status": "confirmed",
+        "passengers": [
+          {
+            "id": "P1",
+            "title": "Mr",
+            "firstName": "Amit",
+            "lastName": "Sharma",
+            "dateOfBirth": "10-08-1990",
+            "passport": {
+              "number": "A9876543",
+              "expiryDate": "12-12-2029",
+              "issuingCountry": "India"
+            },
+            "specialRequests": ["Vegetarian Meal"]
+          }
+        ],
+        "flights": [
+          {
+            "airlineName": "IndiGo",
+            "flightNumber": "6E525",
+            "departure": {
+              "airport": "BOM",
+              "terminal": "1",
+              "gate": "C4",
+              "scheduledTime": "2025-03-05T08:45:00Z",
+              "city": "Mumbai",
+              "country": "India"
+            },
+            "arrival": {
+              "airport": "BLR",
+              "terminal": "2",
+              "gate": "D1",
+              "scheduledTime": "2025-03-05T11:15:00Z",
+              "city": "Bangalore",
+              "country": "India"
+            },
+            "aircraft": {
+              "type": "Airbus A321",
+              "registration": "VT-IGC"
+            },
+            "cabin": "business",
+            "seat": "4A",
+            "baggage": {
+              "checkedBags": 2,
+              "checkedBagsWeight": 25,
+              "weightUnit": "kg",
+              "cabinBags": 1
+            }
+          }
+        ],
+        "contactInfo": {
+          "email": "amit.sharma@email.com",
+          "phone": "+91-9876543001",
+          "emergencyContact": {
+            "name": "Neha Sharma",
+            "relationship": "wife",
+            "phone": "+91-9876543002"
+          }
+        },
+        "payment": {
+          "method": "debit_card",
+          "status": "paid",
+          "transactionId": "TXN123987456",
+          "cardLastFourDigits": "6789",
+          "billingAddress": {
+            "street": "45 MG Road",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pinCode": "400001",
+            "country": "India"
+          }
+        }
+      },
+      {
+        "bookingReference": "BK567891234",
+        "pnr": "LMN456",
+        "bookingDate": "2025-02-17T15:20:00Z",
+        "totalPrice": 21000.00,
+        "currency": "INR",
+        "status": "confirmed",
+        "passengers": [
+          {
+            "id": "P2",
+            "title": "Mrs",
+            "firstName": "Priya",
+            "lastName": "Verma",
+            "dateOfBirth": "25-04-1985",
+            "passport": {
+              "number": "B4561237",
+              "expiryDate": "05-06-2027",
+              "issuingCountry": "India"
+            },
+            "specialRequests": ["Wheelchair Assistance"]
+          }
+        ],
+        "flights": [
+          {
+            "airlineName": "Vistara",
+            "flightNumber": "UK320",
+            "departure": {
+              "airport": "DEL",
+              "terminal": "3",
+              "gate": "A8",
+              "scheduledTime": "2025-03-10T17:00:00Z",
+              "city": "New Delhi",
+              "country": "India"
+            },
+            "arrival": {
+              "airport": "MAA",
+              "terminal": "1",
+              "gate": "B5",
+              "scheduledTime": "2025-03-10T19:30:00Z",
+              "city": "Chennai",
+              "country": "India"
+            },
+            "aircraft": {
+              "type": "Boeing 737",
+              "registration": "VT-VKL"
+            },
+            "cabin": "economy",
+            "seat": "14C",
+            "baggage": {
+              "checkedBags": 1,
+              "checkedBagsWeight": 20,
+              "weightUnit": "kg",
+              "cabinBags": 1
+            }
+          }
+        ],
+        "contactInfo": {
+          "email": "priya.verma@email.com",
+          "phone": "+91-9876543123",
+          "emergencyContact": {
+            "name": "Rahul Verma",
+            "relationship": "husband",
+            "phone": "+91-9876543124"
+          }
+        },
+        "payment": {
+          "method": "UPI",
+          "status": "paid",
+          "transactionId": "TXN568974123",
+          "cardLastFourDigits": "",
+          "billingAddress": {
+            "street": "78 Central Avenue",
+            "city": "Delhi",
+            "state": "Delhi",
+            "pinCode": "110011",
+            "country": "India"
+          }
+        }
+      },
+      {
+        "bookingReference": "BK345678910",
+        "pnr": "DEF789",
+        "bookingDate": "2025-02-18T18:45:00Z",
+        "totalPrice": 19500.00,
+        "currency": "INR",
+        "status": "confirmed",
+        "passengers": [
+          {
+            "id": "P3",
+            "title": "Mr",
+            "firstName": "Vikram",
+            "lastName": "Singh",
+            "dateOfBirth": "30-01-1992",
+            "passport": {
+              "number": "X1234567",
+              "expiryDate": "10-09-2028",
+              "issuingCountry": "India"
+            },
+            "specialRequests": ["Extra Legroom"]
+          }
+        ],
+        "flights": [
+          {
+            "airlineName": "SpiceJet",
+            "flightNumber": "SG201",
+            "departure": {
+              "airport": "BLR",
+              "terminal": "1",
+              "gate": "E2",
+              "scheduledTime": "2025-03-15T06:20:00Z",
+              "city": "Bangalore",
+              "country": "India"
+            },
+            "arrival": {
+              "airport": "GOI",
+              "terminal": "1",
+              "gate": "F7",
+              "scheduledTime": "2025-03-15T07:50:00Z",
+              "city": "Goa",
+              "country": "India"
+            },
+            "aircraft": {
+              "type": "Boeing 737 MAX",
+              "registration": "VT-MAX"
+            },
+            "cabin": "economy",
+            "seat": "12F",
+            "baggage": {
+              "checkedBags": 1,
+              "checkedBagsWeight": 15,
+              "weightUnit": "kg",
+              "cabinBags": 1
+            }
+          }
+        ],
+        "contactInfo": {
+          "email": "vikram.singh@email.com",
+          "phone": "+91-9876543220",
+          "emergencyContact": {
+            "name": "Rohit Singh",
+            "relationship": "brother",
+            "phone": "+91-9876543221"
+          }
+        },
+        "payment": {
+          "method": "net_banking",
+          "status": "paid",
+          "transactionId": "TXN852147963",
+          "cardLastFourDigits": "",
+          "billingAddress": {
+            "street": "55 Residency Road",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "pinCode": "560001",
+            "country": "India"
+          }
+        }
+      },
+    {
+        "bookingReference": "BK987654321",
+        "pnr": "XYZ789",
+        "bookingDate": "2025-03-10T12:15:00Z",
+        "totalPrice": 18900.00,
+        "currency": "INR",
+        "status": "confirmed",
+        "passengers": [
+          {
+            "id": "P",
+            "title": "Mrs",
+            "firstName": "Anita",
+            "lastName": "Sharma",
+            "dateOfBirth": "12-08-1988",
+            "passport": {
+              "number": "A9876543",
+              "expiryDate": "15-06-2029",
+              "issuingCountry": "India"
+            },
+            "specialRequests": ["Vegetarian meal"]
+          }
+        ],
+        "flights": [
+          {
+            "airlineName": "IndiGo",
+            "flightNumber": "6E205",
+            "departure": {
+              "airport": "BLR",
+              "terminal": "1",
+              "gate": "C10",
+              "scheduledTime": "2025-04-05T09:30:00Z",
+              "city": "Bangalore",
+              "country": "India"
+            },
+            "arrival": {
+              "airport": "DEL",
+              "terminal": "3",
+              "gate": "B5",
+              "scheduledTime": "2025-04-05T12:15:00Z",
+              "city": "New Delhi",
+              "country": "India"
+            },
+            "aircraft": {
+              "type": "Boeing 737",
+              "registration": "VT-IND"
+            },
+            "cabin": "business",
+            "seat": "5C",
+            "baggage": {
+              "checkedBags": 2,
+              "checkedBagsWeight": 30,
+              "weightUnit": "kg",
+              "cabinBags": 1
+            }
+          }
+        ],
+        "contactInfo": {
+          "email": "anita.sharma@email.com",
+          "phone": "+91-9865432109",
+          "emergencyContact": {
+            "name": "Ravi Sharma",
+            "relationship": "husband",
+            "phone": "+91-9876543222"
+          }
+        },
+        "payment": {
+          "method": "debit_card",
+          "status": "paid",
+          "transactionId": "TXN543210987",
+          "cardLastFourDigits": "5678",
+          "billingAddress": {
+            "street": "45 MG Road",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "pinCode": "560001",
+            "country": "India"
+          }
+        }
+      },
+      {
+        "bookingReference": "BK456789123",
+        "pnr": "LMN456",
+        "bookingDate": "2025-02-20T15:45:00Z",
+        "totalPrice": 21000.00,
+        "currency": "INR",
+        "status": "confirmed",
+        "passengers": [
+          {
+            "id": "P3",
+            "title": "Mr",
+            "firstName": "Amit",
+            "lastName": "Verma",
+            "dateOfBirth": "05-02-1992",
+            "passport": {
+              "number": "B4567891",
+              "expiryDate": "22-09-2030",
+              "issuingCountry": "India"
+            },
+            "specialRequests": ["Extra legroom"]
+          }
+        ],
+        "flights": [
+          {
+            "airlineName": "SpiceJet",
+            "flightNumber": "SG101",
+            "departure": {
+              "airport": "HYD",
+              "terminal": "2",
+              "gate": "D8",
+              "scheduledTime": "2025-05-10T18:00:00Z",
+              "city": "Hyderabad",
+              "country": "India"
+            },
+            "arrival": {
+              "airport": "GOI",
+              "terminal": "1",
+              "gate": "E3",
+              "scheduledTime": "2025-05-10T20:15:00Z",
+              "city": "Goa",
+              "country": "India"
+            },
+            "aircraft": {
+              "type": "Boeing 737 MAX",
+              "registration": "VT-SPJ"
+            },
+            "cabin": "premium economy",
+            "seat": "10F",
+            "baggage": {
+              "checkedBags": 1,
+              "checkedBagsWeight": 20,
+              "weightUnit": "kg",
+              "cabinBags": 1
+            }
+          }
+        ],
+        "contactInfo": {
+          "email": "amit.verma@email.com",
+          "phone": "+91-9988776655",
+          "emergencyContact": {
+            "name": "Neha Verma",
+            "relationship": "wife",
+            "phone": "+91-9988776644"
+          }
+        },
+        "payment": {
+          "method": "UPI",
+          "status": "paid",
+          "transactionId": "TXN112233445",
+          "cardLastFourDigits": "N/A",
+          "billingAddress": {
+            "street": "78 Jubilee Hills",
+            "city": "Hyderabad",
+            "state": "Telangana",
+            "pinCode": "500033",
+            "country": "India"
+          }
+        }
+      }
+  ]
+  

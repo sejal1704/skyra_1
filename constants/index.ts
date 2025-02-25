@@ -8,7 +8,11 @@ export const navLinks = [
     route: "/flights",
   },
   {
-    label: "Ar Navigation",
-    route: "/arnavigation",
+    label: "AI Assistant",
+    route: "/ai-terminal",
   },
+  {
+    label: "Currency Converter",
+    route :"/calculator",
+  }
 ];
