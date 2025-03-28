@@ -9,9 +9,9 @@ import { ChatCompletionMessageParam } from 'openai/resources/chat';
 
 // Import the flight bookings data - replace this with your actual import method
 import user from "@/user.json";
-const API = process.env.NEXT_PUBLIC_OPEN_AI;
+
 const openai = new OpenAI({
-  apiKey: API,
+  apiKey: process.env.NEXT_PUBLIC_OPEN_AI,
   dangerouslyAllowBrowser: true,
 });
 
