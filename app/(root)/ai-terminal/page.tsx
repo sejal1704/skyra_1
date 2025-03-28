@@ -11,7 +11,7 @@ import { ChatCompletionMessageParam } from 'openai/resources/chat';
 import user from "@/user.json";
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPEN_AI | "",
+  apiKey: process.env.NEXT_PUBLIC_OPEN_AI || "",
   dangerouslyAllowBrowser: true,
 });
 
