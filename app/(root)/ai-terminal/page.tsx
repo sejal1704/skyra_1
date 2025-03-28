@@ -6,10 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import { ChatCompletionMessageParam } from 'openai/resources/chat';
+
 // Import the flight bookings data - replace this with your actual import method
 import user from "@/user.json";
-const API =
-  "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";
+const API = process.env.NEXT_PUBLIC_OPEN_AI;
 const openai = new OpenAI({
   apiKey: API,
   dangerouslyAllowBrowser: true,
