@@ -1,15 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { OpenAI } from "openai";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-
+import { ChatCompletionMessageParam } from 'openai/resources/chat';
 // Import the flight bookings data - replace this with your actual import method
-// For this example, I'm assuming you'll have the JSON in a separate file
 import user from "@/user.json";
-const API = "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"
+const API =
+  "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";
 const openai = new OpenAI({
   apiKey: API,
   dangerouslyAllowBrowser: true,
@@ -38,6 +38,9 @@ interface Baggage {
 interface Booking {
   bookingReference: string;
   pnr: string;
+  contactInfo: {
+    email: string;
+  };
   passengers: Array<{
     title: string;
     firstName: string;
@@ -63,6 +66,19 @@ export default function FlightAgent() {
   const [userMessage, setUserMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [currentBooking, setCurrentBooking] = useState<Booking | null>(null);
+  // const [conversationHistory, setConversationHistory] = useState<
+  //   Array<{ role: string; content: string }>
+  // >([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [conversationHistory, setConversationHistory] = useState<ChatCompletionMessageParam[]>([]);
+
+
+  // Auto-scroll to bottom when messages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const validateUser = () => {
     // Find the booking that matches the PNR and email
@@ -73,15 +89,84 @@ export default function FlightAgent() {
     if (matchedBooking) {
       setAuthenticated(true);
       setCurrentBooking(matchedBooking);
-      setMessages([
+
+      // Initialize with a welcoming message
+      const welcomeMessage = `Welcome ${matchedBooking.passengers[0].firstName}! I'm your AI flight assistant. How can I help you today?`;
+      setMessages([{ sender: "bot", text: welcomeMessage }]);
+
+      // Initialize conversation history
+      setConversationHistory([
         {
-          sender: "bot",
-          text: `Welcome ${matchedBooking.passengers[0].firstName}! Ask me about your flight.`,
+          role: "system",
+          content: getSystemPrompt(matchedBooking),
+        },
+        {
+          role: "assistant",
+          content: welcomeMessage,
         },
       ]);
     } else {
       alert("Invalid PNR or email. Please try again.");
     }
+  };
+
+  const getSystemPrompt = (booking: Booking) => {
+    const flight = booking.flights[0];
+    const flightInfo = `
+      Flight ${flight.flightNumber} (${flight.airlineName}) 
+      departs from ${flight.departure.airport} (${
+      flight.departure.city
+    }) at ${new Date(flight.departure.scheduledTime).toLocaleString()} 
+      and arrives at ${flight.arrival.airport} (${
+      flight.arrival.city
+    }) at ${new Date(flight.arrival.scheduledTime).toLocaleString()}. 
+      Seat: ${flight.seat}. Terminal: ${flight.departure.terminal}, Gate: ${
+      flight.departure.gate
+    }.
+      Cabin class: ${flight.cabin}. Baggage allowance: ${
+      flight.baggage.checkedBags
+    } checked bags (${flight.baggage.checkedBagsWeight}${
+      flight.baggage.weightUnit
+    }) and ${flight.baggage.cabinBags} cabin bag(s).
+      Passenger: ${booking.passengers[0].title} ${
+      booking.passengers[0].firstName
+    } ${booking.passengers[0].lastName}.
+      Booking reference: ${booking.bookingReference}.
+      Special requests: ${booking.passengers[0].specialRequests.join(", ")}.
+    `;
+  
+    return `You are a helpful and friendly flight assistant named SkyBuddy. You help passengers with their flight information and answer general travel questions.
+    
+    IMPORTANT GUIDELINES:
+    1. Be conversational and friendly. Respond appropriately to greetings like "hi", "hello", etc.
+    2. For general questions not related to flight details, provide helpful responses without making up information.
+    3. When the user asks about their specific flight details, use ONLY the information provided below.
+    4. Format dates, times, and information in a readable, user-friendly way.
+    5. Keep responses concise but complete.
+    6. If you don't know something, simply say so rather than making up an answer.
+    7. Always maintain a helpful, positive tone.
+    8. If the user asks for navigation help to reach the terminal or gate, provide helpful directions.
+    
+    FLIGHT INFORMATION:
+    ${flightInfo}
+    
+    USER INFORMATION:
+    Name: ${booking.passengers[0].title} ${booking.passengers[0].firstName} ${booking.passengers[0].lastName}
+    Booking reference: ${booking.bookingReference}
+    PNR: ${booking.pnr}
+    
+    TERMINAL NAVIGATION HELP:
+    If the user asks for directions to reach ${flight.departure.terminal} or navigate the airport:
+    - Suggest they can take a taxi directly to ${flight.departure.terminal} drop-off area
+    - After entering the terminal building, they should look for the information boards
+    - Direct them to check in at their airline's counter (${flight.airlineName})
+    - Tell them they can find a Starbucks cafe near the central atrium 
+    - From there, they should take the left corridor and follow signs to their gate
+    - Security checkpoints are typically after check-in and before the gate area
+    - Escalators to gates are usually past the duty-free shopping area
+    - Gate ${flight.departure.gate} can be reached by following the directional signs in the terminal
+    
+    Always be specific about using the terminal number and gate information provided in the flight details and u can give different routes for each flight depending on the terminal`;
   };
 
   const sendMessage = async () => {
@@ -93,54 +178,25 @@ export default function FlightAgent() {
     setIsLoading(true);
 
     try {
-      const flight = currentBooking.flights[0];
-      const flightInfo = `
-        Your flight ${flight.flightNumber} (${flight.airlineName}) 
-        departs from ${flight.departure.airport} (${
-        flight.departure.city
-      }) at ${new Date(flight.departure.scheduledTime).toLocaleString()} 
-        and arrives at ${flight.arrival.airport} (${
-        flight.arrival.city
-      }) at ${new Date(flight.arrival.scheduledTime).toLocaleString()}. 
-        Your seat is ${flight.seat}. Terminal: ${
-        flight.departure.terminal
-      }, Gate: ${flight.departure.gate}.
-        Cabin class: ${flight.cabin}. Baggage allowance: ${
-        flight.baggage.checkedBags
-      } checked bags (${flight.baggage.checkedBagsWeight}${
-        flight.baggage.weightUnit
-      }) and ${flight.baggage.cabinBags} cabin bag(s).
-        Passenger: ${currentBooking.passengers[0].title} ${
-        currentBooking.passengers[0].firstName
-      } ${currentBooking.passengers[0].lastName}.
-        Booking reference: ${currentBooking.bookingReference}.
-        Special requests: ${currentBooking.passengers[0].specialRequests.join(
-          ", "
-        )}.
-      `;
-
-      const prompt = `User asked: "${userMessage}". Provide a helpful response based on this flight data: ${flightInfo}`;
-
+      // Update conversation history with user message
+      const updatedHistory: ChatCompletionMessageParam[] = [
+        ...conversationHistory,
+        { role: "user", content: userMessage }
+      ];
+      
       const aiResponse = await openai.chat.completions.create({
         model: "gpt-4",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a helpful flight assistant. Provide concise and relevant information about the user's flight details. Format dates and times nicely.",
-          },
-          { role: "user", content: prompt },
-        ],
+        messages: updatedHistory,
       });
+      const botResponse =
+        aiResponse.choices[0].message.content ||
+        "Sorry, I couldn't process that.";
 
-      setMessages([
-        ...newMessages,
-        {
-          sender: "bot",
-          text:
-            aiResponse.choices[0].message.content ||
-            "Sorry, I couldn't process that.",
-        },
+      // Update messages and conversation history
+      setMessages([...newMessages, { sender: "bot", text: botResponse }]);
+      setConversationHistory([
+        ...updatedHistory,
+        { role: "assistant", content: botResponse },
       ]);
     } catch (error) {
       setMessages([
@@ -162,11 +218,17 @@ export default function FlightAgent() {
     }
   };
 
+  // Sample data for demonstration
+  const populateSampleData = () => {
+    setPnr("XYZ987");
+    setEmail("amit.sharma@email.com");
+  };
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4">
+    <div className="min-h-screen w-full flex items-center justify-center p-4 bg-gray-50">
       <div className="w-full max-w-xl bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="bg-indigo-600 p-4 text-white">
-          <h1 className="text-2xl font-bold">AI Flight Assistant</h1>
+          <h1 className="text-2xl font-bold">SkyBuddy AI Flight Assistant</h1>
         </div>
 
         {!authenticated ? (
@@ -194,6 +256,14 @@ export default function FlightAgent() {
               >
                 Access My Flight
               </Button>
+              <div className="text-center">
+                <button
+                  onClick={populateSampleData}
+                  className="text-indigo-600 text-sm underline mt-2"
+                >
+                  Use sample data
+                </button>
+              </div>
             </div>
           </div>
         ) : (
@@ -216,9 +286,10 @@ export default function FlightAgent() {
                   {isLoading && (
                     <div className="bg-indigo-100 text-gray-800 p-3 rounded-lg max-w-[80%] mr-auto flex items-center">
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Generating response...
+                      Thinking...
                     </div>
                   )}
+                  <div ref={messagesEndRef} />
                 </div>
               </CardContent>
             </Card>
@@ -228,7 +299,7 @@ export default function FlightAgent() {
                   value={userMessage}
                   onChange={(e) => setUserMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about your flight..."
+                  placeholder="Type your message here..."
                   className="flex-grow"
                   disabled={isLoading}
                 />
@@ -243,6 +314,10 @@ export default function FlightAgent() {
                     "Send"
                   )}
                 </Button>
+              </div>
+              <div className="mt-2 text-xs text-gray-500">
+                Try asking about your flight details, baggage allowance, or just
+                say hi!
               </div>
             </div>
           </div>
